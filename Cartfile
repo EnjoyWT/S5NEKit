@@ -1,6 +1,5 @@
 github "CocoaLumberjack/CocoaLumberjack"
 github "robbiehanson/CocoaAsyncSocket"
-github "EnjoyWT/Sodium-framework"
 github "lexrus/MMDB-Swift"
 github "behrang/YamlSwift"
 github "zhuhaow/tun2socks"
