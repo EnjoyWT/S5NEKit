@@ -10,7 +10,7 @@ import CocoaLumberjackSwift
 import NetworkExtension
 import NEKit
 import MMDB
-
+import os.log
 class LogFormatter: NSObject, DDLogFormatter {
     func format(message logMessage: DDLogMessage) -> String? {
         return "VPNLOG: \(logMessage.message)"
@@ -26,13 +26,17 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var auth = socks5Auth()
     var lastPath: NWPath?
     var ss_dns: String!
-    
+    private let log = OSLog(subsystem: "vpn-tunnel-ptp", category: "default")
+
     override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         
-        DDLogInfo("准备连接VPN")
-        
+        completionHandler(nil)
+        return
+        os_log("准备连接VPN")
+        os_log(.default, log: log, "准备连接VPN: %{private}@", "\(String(describing: options))")
+
         guard let conf = (protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else{
-            DDLogInfo("[错误]找不到协议配置")
+            os_log("[错误]找不到协议配置")
             exit(EXIT_FAILURE)
         }
         
